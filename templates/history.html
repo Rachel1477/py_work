@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>历史记录查询</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .history-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .table-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .table-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="history-container">
+        <h2 class="mb-4">选择历史数据表</h2>
+        <form action="{{ url_for('process_selection') }}" method="POST">
+            <div class="list-group">
+                {% if table_list %}
+                    {% for table in table_list %}
+                    <label class="list-group-item d-flex justify-content-between align-items-center">
+                        <div class="table-item">
+                            <input class="form-check-input me-3" 
+                                   type="radio" 
+                                   name="selected_table" 
+                                   id="table_{{ loop.index }}" 
+                                   value="{{ table }}" 
+                                   required>
+                            <span class="fs-5">{{ table }}</span>
+                        </div>
+                    </label>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-warning">暂无历史记录</div>
+                {% endif %}
+            </div>
+            
+            {% if table_list %}
+            <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-primary btn-lg">分析选定表格</button>
+            </div>
+            {% endif %}
+            
+        </form>
+        <button type="button"
+        class="btn btn-secondary btn-lg"
+        onclick="window.location.href='/'">
+        返回
+        </button>
+
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

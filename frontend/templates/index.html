@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实习数据分析网站</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        .wave-container {
+            width: 100%;
+            overflow: hidden;
+            line-height: 0;
+        }
+        
+        .wave-container svg {
+            display: block;
+            width: calc(100% + 1.3px);
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <ul class="nav bg-info rounded">
+                    <li class="nav-item">
+                        <a class="nav-link active text-white" href="#">首页</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="{{ url_for('analysis') }}">进入分析界面</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link disabled text-white" href="#">Your internship analysis website</a>
+                    </li>
+                    
+                </ul>
+                <br />
+                <h1 class="text-center text-info">
+                    实习数据分析网站
+                    
+                </h1> <span class="badge badge-default text-center">BY XXX XXX XXX XXX XXX</span>
+                <div class="jumbotron" >
+
+                    <h2>
+                        Hello,My Friend!
+                    </h2>
+                    <p>
+                        我们通过爬取各大招聘网站的实习岗位数据，分析不同学历、地域的薪资水平、福利待遇等信息，为您提供更深入的实习数据分析。
+                        点击下方按钮分析实习数据。
+                    </p>
+                    <p>
+                        <a class="btn btn-primary btn-large" href="{{ url_for('analysis') }}">开始分析实习数据</a>
+                    </p>
+                </div>
+                <div class="page-header">
+                    <h1>
+                        <small>我们可以：</small>
+                    </h1>
+                </div>
+                <hr />
+                <div class="media">
+                    <img class="mr-3" alt="Bootstrap Media Preview" src="{{ url_for('static', filename='images/technology.png') }}" style="width: 100px;" />
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            实习技术要求分析
+                        </h5> 提取实习岗位的技术要求，进行关键词词云分析，帮助您了解实习岗位的技术要求。
+                    </div>
+                </div>
+                <hr />
+                <div class="media ml-auto">
+                    <img class="mr-3" alt="Bootstrap Media Preview" src="{{ url_for('static', filename='images/salary.png') }}" style="width: 100px;" />
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            薪资分析
+                        </h5> 分析不同学历、地域的薪资水平，帮助您了解薪资水平的差异。
+                    </div>
+                </div>
+                <hr />
+                <div class="media">
+                    <img class="mr-3" alt="Bootstrap Media Preview" src="{{ url_for('static', filename='images/post.png') }}" style="width: 100px;" />
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            热门岗位分析
+                        </h5> 分析哪个岗位热度高，帮助您了解热门岗位。
+                    </div>
+                </div>
+                <hr />
+                <div class="media ml-auto">
+                    <img class="mr-3" alt="Bootstrap Media Preview" src="{{ url_for('static', filename='images/ai.png') }}" style="width: 100px;" />
+                    <div class="media-body">
+                        <h5 class="mt-0">
+                            LLM（大模型）分析
+                        </h5> 通过大模型分析实习岗位的薪资水平、福利待遇等信息，帮助您深入了解实习岗位。
+                        
+                    </div>
+                </div>
+                <hr />
+                
+                <div class="wave-container">
+                    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                        <path d="M0,120V73.71c47.79-22.2,103.59-32.17,158-28,70.36,5.37,136.33,33.31,206.8,37.5C438.64,87.57,512.34,66.33,583,47.95c69.27-18,138.3-24.88,209.4-13.08,36.15,6,69.85,17.84,104.45,29.34C989.49,95,1113,134.29,1200,67.53V120Z" opacity=".25" fill="#17a2b8"></path>
+                        <path d="M0,120V104.19C13,83.08,27.64,63.14,47.69,47.95,99.41,8.73,165,9,224.58,28.42c31.15,10.15,60.09,26.07,89.67,39.8,40.92,19,84.73,46,130.83,49.67,36.26,2.85,70.9-9.42,98.6-31.56,31.77-25.39,62.32-62,103.63-73,40.44-10.79,81.35,6.69,119.13,24.28s75.16,39,116.92,43.05c59.73,5.85,113.28-22.88,168.9-38.84,30.2-8.66,59-6.17,87.09,7.5,22.43,10.89,48,26.93,60.65,49.24V120Z" opacity=".5" fill="#17a2b8"></path>
+                        <path d="M0,120V114.37C149.93,61,314.09,48.68,475.83,77.43c43,7.64,84.23,20.12,127.61,26.46,59,8.63,112.48-12.24,165.56-35.4C827.93,42.78,886,24.76,942.2,30c86.53,7,172.46,45.71,248.8,84.81V120Z" fill="#17a2b8"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

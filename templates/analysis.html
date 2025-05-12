@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数据分析中心</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        /* 新增全局样式 */
+        body {
+            background: #f0f2f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 导航栏样式 */
+        .nav-bar {
+            background: #2c3e50;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .nav-bar a {
+            color: white;
+            text-decoration: none;
+            margin-right: 20px;
+            padding: 8px 16px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .nav-bar a:hover {
+            background: #34495e;
+        }
+
+        /* 轮播图样式 */
+        .carousel {
+            position: relative;
+            margin: 20px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-item {
+            position: relative;
+            text-align: center;
+            background: white;
+        }
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .carousel-control:hover {
+            background: rgba(0,0,0,0.8);
+        }
+        .prev {
+            left: 20px;
+        }
+        .next {
+            right: 20px;
+        }
+        .carousel-caption {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+        }
+
+        /* 图片放大样式修改 */
+        .enlarged {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1001;
+            max-width: 90vw !important;
+            max-height: 90vh !important;
+            width: auto !important;
+            height: auto !important;
+            cursor: zoom-out;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            display: none;
+        }
+
+        /* 其他优化样式 */
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        /* 聊天对话框优化 */
+        dialog {
+            width: 1200px;
+            max-width: 90%;
+            background: white;
+        }
+        #chatLog {
+            min-height: 200px;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+        .chart-image {
+            max-width: 80%;
+            max-height: 60vh;
+            height: auto;
+            width: auto;
+            cursor: zoom-in;
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+            margin: 0 auto;
+            display: block;
+            object-fit: contain;
+        }
+    
+        /* 修改轮播图项样式 */
+        .carousel-item {
+            min-width: 100%;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+        }
+    
+        /* 新增图片容器 */
+        .image-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+    
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .chart-image {
+                max-width: 95%;
+                max-height: 50vh;
+            }
+            .carousel-item {
+                min-height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 保持原有HTML结构不变 -->
+    <div class="container">
+        <nav class="nav-bar">
+            <a href="{{ url_for('index') }}">首页</a>
+            <a href="#analysis">分析中心</a>
+            <a href="#about">关于我们</a>
+        </nav>
+
+        <h1>数据分析可视化中心</h1>
+        
+        <button id="openChat" class="btn">开启智能分析对话</button>
+
+        <dialog id="chatDialog">
+            <h2>智能分析助手</h2>
+            <div id="chatLog" style="max-height:200px; overflow-y:auto; border:1px solid #ccc; margin-bottom:10px; padding:5px;"></div>
+            <form id="chatForm">
+                <textarea id="userMsg" rows="4" style="width:100%; margin:10px 0;" placeholder="请输入您的分析需求..."></textarea>
+                <div style="text-align: right;">
+                    <button type="button" id="closeChat" class="btn">关闭</button>
+                    <button type="submit" class="btn" style="background: #27ae60;">发送</button>
+                </div>
+            </form>
+        </dialog>
+
+        <div class="carousel">
+            <div class="carousel-inner">
+                {% set images = [
+                    ('福利待遇词云', 'figures/福利待遇_wordcloud.png'),
+                    ('职位要求词云', 'figures/职位要求_wordcloud.png'),
+                    ('簇薪资对比', 'figures/cluster_salary.png'),
+                    ('聚类词云合集', 'figures/cluster_wordclouds.png'),
+                    ('特征重要性', 'figures/feature_importance.png'),
+                    ('城市-学历薪资热力图', 'figures/plot_heatmap.png'),
+                    ('薪资分布小提琴图', 'figures/plot_violin.png'),
+                    ('学历-薪资关系箱型图', 'figures/plot_box.png'),
+                    ('热门城市岗位TOP10', 'figures/plot_top_cities.png')
+                ] %}
+                {% for label, path in images %}
+                <div class="carousel-item">
+                    <div class="image-container">
+                        <img src="{{ url_for('static', filename=path) }}" alt="{{ label }}" class="chart-image">
+                    </div>
+                    <div class="carousel-caption">{{ label }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button class="carousel-control prev">❮</button>
+            <button class="carousel-control next">❯</button>
+        </div>
+        <div class="overlay"></div>
+
+        <a href="{{ url_for('index') }}" class="btn" style="margin-top:20px;">返回首页</a>
+    </div>
+
+    <script>
+        // 轮播图功能（保持不变）
+        let currentIndex = 0;
+        const items = document.querySelectorAll('.carousel-item');
+        const inner = document.querySelector('.carousel-inner');
+        const totalItems = items.length;
+
+        function updateCarousel() {
+            inner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalItems - 1;
+            updateCarousel();
+        });
+
+        document.querySelector('.next').addEventListener('click', () => {
+            currentIndex = (currentIndex < totalItems - 1) ? currentIndex + 1 : 0;
+            updateCarousel();
+        });
+
+        // 优化后的图片放大功能
+        document.querySelectorAll('.chart-image').forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const overlay = document.querySelector('.overlay');
+                if (this.classList.contains('enlarged')) {
+                    this.classList.remove('enlarged');
+                    overlay.style.display = 'none';
+                } else {
+                    // 克隆图片避免布局错乱
+                    const clone = this.cloneNode(true);
+                    clone.classList.add('enlarged');
+                    clone.style.position = 'fixed';
+                    clone.style.zIndex = '1001';
+                    
+                    // 将克隆的图片添加到body
+                    document.body.appendChild(clone);
+                    overlay.style.display = 'block';
+
+                    // 点击关闭逻辑
+                    const closeHandler = () => {
+                        clone.remove();
+                        overlay.style.display = 'none';
+                        document.removeEventListener('click', closeHandler);
+                    };
+                    
+                    clone.addEventListener('click', e => e.stopPropagation());
+                    document.addEventListener('click', closeHandler);
+                    overlay.addEventListener('click', closeHandler);
+                }
+            });
+        });
+
+        // 聊天对话框功能（保持原有逻辑）
+        const dialog = document.getElementById('chatDialog');
+        document.getElementById('openChat').addEventListener('click', () => dialog.showModal());
+        document.getElementById('closeChat').addEventListener('click', () => dialog.close());
+
+        const form = document.getElementById('chatForm');
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            const msg = document.getElementById('userMsg').value;
+            appendMessage('用户', msg);
+            document.getElementById('userMsg').value = '';
+            try {
+                const res = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: msg })
+                });
+                const data = await res.json();
+                appendMessage('助手', data.reply);
+            } catch (err) {
+                appendMessage('系统', '请求失败，请稍后重试。');
+            }
+        });
+
+        function appendMessage(who, text) {
+            const log = document.getElementById('chatLog');
+            const p = document.createElement('p');
+            p.textContent = `${who}: ${text}`;
+            log.appendChild(p);
+            log.scrollTop = log.scrollHeight;
+        }
+    </script>
+</body>
+</html>

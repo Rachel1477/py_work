@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>大学生实习招聘市场分析系统</title>
+  <!-- Bootstrap 样式 -->
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+  />
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+
+  <style>
+    /* 波浪效果 */
+    .wave-container {
+      width: 100%;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .wave-container svg {
+      display: block;
+      width: calc(100% + 1.3px);
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 顶部导航栏 -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{{ url_for('index') }}">实习市场分析</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active text-white" href="{{ url_for('index') }}">首页</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ url_for('show_analysis') }}">进入分析界面</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="{{ url_for('start_crawling') }}">开始爬取数据</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 主要内容区 -->
+  <div class="container my-5">
+    <div class="jumbotron p-4 bg-light rounded">
+      <h1 class="display-5 text-info">大学生实习招聘市场分析系统</h1>
+      <p class="lead">
+        本系统可以帮助分析当前实习岗位对大学生的技能要求、薪资水平、热门岗位等信息。
+      </p>
+      <hr class="my-4" />
+      <p>您可以：</p>
+      <ul>
+        <li>爬取最新岗位数据；</li>
+        <li>对技术要求做词云分析；</li>
+        <li>对薪资、地域、学历做统计；</li>
+        <li>查看热门岗位及大模型分析结果。</li>
+      </ul>
+
+      <!-- 搜索表单 -->
+      <form action="{{ url_for('start_crawling') }}" method="get" class="mt-4">
+        <div class="mb-3">
+          <input 
+            type="text" 
+            name="keyword"
+            class="form-control form-control-lg" 
+            placeholder="请输入关键字（如计算机，视频剪辑…）"
+            value="{{ request.args.get('keyword','') }}"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary btn-lg">开始</button>
+        <a
+          class="btn btn-success btn-lg"
+          href="{{ url_for('show_history') }}"
+          role="button"
+          >历史记录</a
+        >
+      </form>
+    </div>
+
+    <!-- 功能介绍 -->
+    <div class="row text-center mt-5">
+      <div class="col-md-3">
+        <img
+          src="{{ url_for('static', filename='images/technology.png') }}"
+          alt="技术要求"
+          class="mb-2"
+          style="width: 80px;"
+        />
+        <h5>技术要求分析</h5>
+        <p>提取岗位技术关键词，生成词云，直观了解需求。</p>
+      </div>
+      <div class="col-md-3">
+        <img
+          src="{{ url_for('static', filename='images/salary.png') }}"
+          alt="薪资分析"
+          class="mb-2"
+          style="width: 80px;"
+        />
+        <h5>薪资分析</h5>
+        <p>按地域/学历统计薪资差异，助您把握行情。</p>
+      </div>
+      <div class="col-md-3">
+        <img
+          src="{{ url_for('static', filename='images/post.png') }}"
+          alt="热门岗位"
+          class="mb-2"
+          style="width: 80px;"
+        />
+        <h5>热门岗位分析</h5>
+        <p>识别最受欢迎实习岗位，助力职业规划。</p>
+      </div>
+      <div class="col-md-3">
+        <img
+          src="{{ url_for('static', filename='images/ai.png') }}"
+          alt="大模型分析"
+          class="mb-2"
+          style="width: 80px;"
+        />
+        <h5>大模型（LLM）分析</h5>
+        <p>利用大模型深度挖掘岗位特征与趋势。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 波浪分隔 -->
+  <div class="wave-container">
+    <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path
+        d="M0,120V73.71c47.79-22.2,103.59-32.17,158-28,70.36,5.37,136.33,33.31,206.8,37.5C438.64,87.57,512.34,66.33,583,47.95c69.27-18,138.3-24.88,209.4-13.08,36.15,6,69.85,17.84,104.45,29.34C989.49,95,1113,134.29,1200,67.53V120Z"
+        opacity=".25"
+        fill="#17a2b8"
+      ></path>
+      <path
+        d="M0,120V104.19C13,83.08,27.64,63.14,47.69,47.95,99.41,8.73,165,9,224.58,28.42c31.15,10.15,60.09,26.07,89.67,39.8,40.92,19,84.73,46,130.83,49.67,36.26,2.85,70.9-9.42,98.6-31.56,31.77-25.39,62.32-62,103.63-73,40.44-10.79,81.35,6.69,119.13,24.28s75.16,39,116.92,43.05c59.73,5.85,113.28-22.88,168.9-38.84,30.2-8.66,59-6.17,87.09,7.5,22.43,10.89,48,26.93,60.65,49.24V120Z"
+        opacity=".5"
+        fill="#17a2b8"
+      ></path>
+      <path
+        d="M0,120V114.37C149.93,61,314.09,48.68,475.83,77.43c43,7.64,84.23,20.12,127.61,26.46,59,8.63,112.48-12.24,165.56-35.4C827.93,42.78,886,24.76,942.2,30c86.53,7,172.46,45.71,248.8,84.81V120Z"
+        fill="#17a2b8"
+      ></path>
+    </svg>
+  </div>
+  <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>
