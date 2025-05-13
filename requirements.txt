@@ -1,7 +1,13 @@
-flask
 pandas
 numpy
 matplotlib
-bs4
+text2vec
+ollama
+seaborn
 requests
-jieba
+beautifulsoup4
+wordcloud
+pymysql
+scikit-learn
+Flask
+torch
