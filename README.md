@@ -65,12 +65,18 @@ ollama run qwen:7b
 ```
 的方式检查预训练权重和ollama是否都正常工作
 
+4.下载好mysql，并按如下设置
+   - 'user': 'root',
+   - 'password': 'rachel1211',
+   - 'database': 'internship_db'
+
+或者你可以手动修改sql目录里的内容
 ## --容器部署
 如果你不想下载依赖，或者在部署时出了无法解决的问题，本项目也提供docker部署，对应的docker image已经上传到dockerhub
 
 你可以运行下面的命令把项目的image 从dockerhub上pull到本地
 ```
-
+docker pull shuanghua0912/python_work:v1
 ```
 (注意：dockerhub需要翻墙才可以访问)
 
