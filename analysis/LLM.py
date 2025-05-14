@@ -14,13 +14,13 @@ with open(DATA_PATH, 'r', encoding='utf-8') as f:
 
 # 为每条岗位构造一个简洁文本描述用于 embedding
 job_texts = [
-    rec.get("企业名称", "") + rec.get("岗位名称", "") + rec.get("工作要求", "")
+    rec.get("企业名称", "") + rec.get("岗位名称", "") + rec.get("工作要求", "")+rec.get("薪资范围","")
     for rec in job_data
 ]
 job_embeddings = embedder.encode(job_texts, normalize_embeddings=True)
 
 # 检索函数：找最相似的前 K 条
-def semantic_search(query: str, top_k=5):
+def semantic_search(query: str, top_k=10):
     query_emb = embedder.encode([query], normalize_embeddings=True)
     scores = cos_sim(query_emb, job_embeddings)[0]
     top_indices = np.argsort(-scores)[:top_k]

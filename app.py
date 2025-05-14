@@ -64,5 +64,8 @@ def api_chat():
     user_msg = data.get('message', '')
     reply = analysis.LLM.ask_llm(user_msg)  # 复用你已有的 ask_llm 函数
     return jsonify(reply=reply)
+@app.route('/about')
+def about():
+    return render_template('about.html')
 if __name__ == '__main__':
     app.run(debug=True,port=3389)

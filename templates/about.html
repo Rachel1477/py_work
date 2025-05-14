@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>关于我们</title>
+  <style>
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 40px;
+    }
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .card {
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .card-icon {
+      min-width: 48px;
+      height: 48px;
+      background-color: #4f6ef7;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card-icon svg {
+      fill: #fff;
+      width: 24px;
+      height: 24px;
+    }
+    .card-content {
+      flex: 1;
+    }
+    .card-title {
+      font-size: 18px;
+      color: #0052cc;
+      margin: 0 0 8px;
+    }
+    .card-text {
+      font-size: 14px;
+      color: #333;
+      line-height: 1.6;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>关于我们</h1>
+  <div class="container">
+    <!-- 数据分析 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm4 6h2v-2H7v2zm0-12h2V5H7v2zm8 12h2v-2h-2v2zm-4-4h2v-2h-2v2zm4-8h2V5h-2v2z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">余洋：数据分析</h2>
+        <p class="card-text">
+          负责对采集到的实习岗位数据进行分析，挖掘数据背后的规律。<br>
+          生成数据分析报告，为项目决策提供依据。
+        </p>
+      </div>
+    </div>
+    <!-- 爬虫 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11L12 2zm0 3.3L14.9 9h-5.8L12 5.3zM2 20v-2l7-11h2l7 11v2H2z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">潘睿磊：爬虫</h2>
+        <p class="card-text">
+          负责编写爬虫程序，从招聘网站采集实习岗位信息。<br>
+          确保数据采集的准确性和完整性，及时更新数据。
+        </p>
+      </div>
+    </div>
+    <!-- 前端 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v16H4V4zm2 2v12h12V6H6z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">马兴元：前端</h2>
+        <p class="card-text">
+          负责项目前端界面的设计与开发，包括网页布局、交互设计等。<br>
+          确保界面美观、用户体验良好，与后端数据对接顺畅。
+        </p>
+      </div>
+    </div>
+    <!-- 报告与PPT -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16v2H4V4zm0 4h16v12H4V8zm2 2v8h12v-8H6z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">骆凯：报告与PPT</h2>
+        <p class="card-text">
+          负责撰写报告与制作 PPT，及时跟进项目进度并归档。<br>
+          完成项目的收尾工作。
+        </p>
+      </div>
+    </div>
+    <!-- 后端 -->
+    <div class="card">
+      <div class="card-icon">
+        <svg viewBox="0 0 24 24"><path d="M3 13h2v-2H3v2zm0 6h2v-2H3v2zm0-12h2V5H3v2zm4 12h2v-2H7v2zm4 0h2v-2h-2v2zm4-6h2v-2h-2v2zm4 6h2v-2h-2v2zm0-12h2V5h-2v2z"/></svg>
+      </div>
+      <div class="card-content">
+        <h2 class="card-title">余俊豪：后端</h2>
+        <p class="card-text">
+          负责后端服务器的搭建与维护，处理前端请求，返回数据。<br>
+          确保数据的稳定传输和存储，优化数据库性能。
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
