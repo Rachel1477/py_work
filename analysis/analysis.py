@@ -1,5 +1,4 @@
-# internship_analysis_enhanced.py
-# 增强版数据分析及可视化脚本
+
 
 import json
 import re
@@ -8,7 +7,7 @@ import warnings
 import pandas as pd
 import numpy as np
 import matplotlib
-matplotlib.use('Agg')  # 必须在导入 pyplot 之前设置
+matplotlib.use('Agg')  
 from matplotlib import pyplot as plt
 import seaborn as sns
 from wordcloud import WordCloud
@@ -24,9 +23,9 @@ warnings.filterwarnings("ignore")
 
 plt.rcParams['font.sans-serif'] = ['WenQuanYi Zen Hei']   # 指定默认中文字体
 plt.rcParams['axes.unicode_minus'] = False               # 解决负号 ‘−’ 显示为方块
-#sns.set_theme(style="whitegrid", palette="pastel")  # 设置Seaborn主题
 
-# 1. 数据预处理（优化版）
+
+# 1. 数据预处理
 def load_data(filepath: str) -> pd.DataFrame:
     """加载并初步处理数据"""
     with open(filepath, 'r', encoding='utf-8') as f:
@@ -79,7 +78,7 @@ def preprocess(df: pd.DataFrame) -> pd.DataFrame:
     df['城市'] = df['工作地点'].str.split().str[0].str.replace('市','')
     return df
 
-# 2. 可视化模块（新增多种图表类型）
+# 2. 可视化模块
 def create_combined_plot(df: pd.DataFrame, outdir='static/figures'):
     """将分析图分别保存为四张图"""
     os.makedirs(outdir, exist_ok=True)
@@ -156,7 +155,12 @@ def enhanced_clustering(df: pd.DataFrame, n_clusters=4):
     X = vec.fit_transform(df['要求_clean'])
     km = KMeans(n_clusters=n_clusters, random_state=42).fit(X)
     df['cluster'] = km.labels_
-    
+    cluster_counts = df['cluster'].value_counts().sort_index()
+    for cluster_id, count in cluster_counts.items():
+        print(f"  簇 {cluster_id}: {count} 条数据")
+
+    # —— 新增：计算每个簇的数量 —— #
+
     # 可视化每个簇的关键词
     fig, axes = plt.subplots(2, 2, figsize=(18, 12))
     for idx, ax in enumerate(axes.flatten()):

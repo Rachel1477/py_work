@@ -29,7 +29,6 @@ def semantic_search(query: str, top_k=10):
 # System prompt 模板
 SYSTEM_TEMPLATE = """你是一个职业咨询顾问，请根据以下实习岗位数据，帮助用户解答与岗位匹配相关的问题。
 请严格基于以下信息进行回答：
-
 {snippet}
 """
 

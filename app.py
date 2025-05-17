@@ -51,8 +51,6 @@ def process_selection():
     """处理用户选择"""
     selected_table = request.form.get('selected_table')
     if selected_table:
-        # 这里可以添加处理逻辑（如存储到session或数据库）
-        # 示例：将选择存入session
         import sql.sql_out
         sql.sql_out.read_out(str(selected_table))
         return redirect(url_for('show_analysis'))
@@ -62,7 +60,7 @@ def process_selection():
 def api_chat():
     data = request.get_json()
     user_msg = data.get('message', '')
-    reply = analysis.LLM.ask_llm(user_msg)  # 复用你已有的 ask_llm 函数
+    reply = analysis.LLM.ask_llm(user_msg)  # 复用ask_llm 函数
     return jsonify(reply=reply)
 @app.route('/about')
 def about():
